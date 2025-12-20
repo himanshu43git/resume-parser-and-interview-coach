@@ -1,0 +1,29 @@
+server:
+  port: 14001
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # Route 1: User Service
+        - id: user-service-route
+          uri: http://user-service:14003
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+
+        # Route 2: Auth Service
+        - id: auth-service-route
+          uri: http://auth-service:14002
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
+        - id: api-docs-route
+          uri: http://user-service:14003
+          predicates:
+              - path = /api-docs/users/**
+          filters:
+            - rewrite-path=/api-docs/users,/v3/api-docs
