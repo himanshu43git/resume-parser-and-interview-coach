@@ -1,0 +1,13 @@
+### 1. Get Profile by Auth ID (Sync Verification)
+# Use 'AUTH_USER_1' from your data.sql
+GET http://localhost:8080/users/profile/auth/AUTH_USER_1
+
+### 2. Sync a New User (Simulate Auth Service)
+POST http://localhost:8080/users/profile/sync
+Content-Type: application/json
+
+{
+  "authUserId": "NEW_AUTH_999",
+  "email": "tester@example.com",
+  "fullName": "Test User"
+}
